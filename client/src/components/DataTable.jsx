@@ -20,18 +20,18 @@ export default function DataTable({ columns, data, loading, emptyMessage = 'No r
   })
 
   return (
-    <div className="card overflow-hidden">
+    <div className="card overflow-hidden flex flex-col">
       {loading ? (
         <LoadingSpinner className="py-16" size={32} />
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-sm min-w-[600px] sm:min-w-0">
             <thead>
               <tr style={{ background: 'var(--bg-secondary)' }}>
                 {columns.map((col) => (
                   <th
                     key={col.key}
-                    className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wide select-none"
+                    className="text-left px-3 sm:px-4 py-3 font-medium text-[10px] sm:text-xs uppercase tracking-wide select-none"
                     style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--border)', cursor: col.sortable ? 'pointer' : 'default' }}
                     onClick={() => col.sortable && handleSort(col.key)}
                   >
@@ -56,12 +56,12 @@ export default function DataTable({ columns, data, loading, emptyMessage = 'No r
                 sorted.map((row, i) => (
                   <tr
                     key={row._id || i}
-                    className="table-row"
+                    className="table-row group"
                     style={{ cursor: onRowClick ? 'pointer' : 'default' }}
                     onClick={() => onRowClick?.(row)}
                   >
                     {columns.map((col) => (
-                      <td key={col.key} className="px-4 py-3 whitespace-nowrap" style={{ color: 'var(--text-primary)' }}>
+                      <td key={col.key} className="px-3 sm:px-4 py-2.5 sm:py-3 whitespace-nowrap" style={{ color: 'var(--text-primary)' }}>
                         {col.render ? col.render(row[col.key], row) : (
                           col.mono ? <span className="stat-mono">{row[col.key]}</span> : row[col.key]
                         )}

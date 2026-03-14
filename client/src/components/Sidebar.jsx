@@ -8,11 +8,12 @@ import useAuthStore from '../store/authStore'
 import useThemeStore from '../store/themeStore'
 import toast from 'react-hot-toast'
 
-const NavItem = ({ to, icon: Icon, label, end = false }) => (
+const NavItem = ({ to, icon: Icon, label, end = false, onClick }) => (
   <NavLink
     to={to}
     end={end}
     className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+    onClick={onClick}
   >
     <Icon size={16} />
     <span>{label}</span>
@@ -25,7 +26,7 @@ const SectionLabel = ({ label }) => (
   </p>
 )
 
-export default function Sidebar() {
+export default function Sidebar({ closeMobile }) {
   const { user, logout, isManager } = useAuthStore()
   const { theme, toggleTheme } = useThemeStore()
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="flex flex-col h-full w-60 border-r px-3 py-4 shrink-0" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+    <aside className="flex flex-col h-full w-full border-r px-3 py-4 shrink-0" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-3 mb-6">
         <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm" style={{ background: 'var(--accent)', color: '#000' }}>
@@ -51,33 +52,33 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto space-y-0.5">
-        <NavItem to="/dashboard" icon={LayoutDashboard} label="Dashboard" end />
+        <NavItem to="/dashboard" icon={LayoutDashboard} label="Dashboard" end onClick={closeMobile} />
 
         <SectionLabel label="Inventory" />
-        <NavItem to="/products" icon={Package} label="Products" end />
-        <NavItem to="/products/stock" icon={Box} label="Stock" />
-        <NavItem to="/products/categories" icon={FolderOpen} label="Categories" />
-        <NavItem to="/products/reorder-rules" icon={BarChart3} label="Reorder Rules" />
+        <NavItem to="/products" icon={Package} label="Products" end onClick={closeMobile} />
+        <NavItem to="/products/stock" icon={Box} label="Stock" onClick={closeMobile} />
+        <NavItem to="/products/categories" icon={FolderOpen} label="Categories" onClick={closeMobile} />
+        <NavItem to="/products/reorder-rules" icon={BarChart3} label="Reorder Rules" onClick={closeMobile} />
 
         <SectionLabel label="Operations" />
-        <NavItem to="/operations/receipts" icon={FileCheck} label="Receipts" />
-        <NavItem to="/operations/deliveries" icon={Send} label="Deliveries" />
-        <NavItem to="/operations/transfers" icon={ArrowLeftRight} label="Transfers" />
-        <NavItem to="/operations/adjustments" icon={RotateCcw} label="Adjustments" />
-        <NavItem to="/operations/history" icon={History} label="Move History" />
+        <NavItem to="/operations/receipts" icon={FileCheck} label="Receipts" onClick={closeMobile} />
+        <NavItem to="/operations/deliveries" icon={Send} label="Deliveries" onClick={closeMobile} />
+        <NavItem to="/operations/transfers" icon={ArrowLeftRight} label="Transfers" onClick={closeMobile} />
+        <NavItem to="/operations/adjustments" icon={RotateCcw} label="Adjustments" onClick={closeMobile} />
+        <NavItem to="/operations/history" icon={History} label="Move History" onClick={closeMobile} />
 
         {isManager() && (
           <>
             <SectionLabel label="Settings" />
-            <NavItem to="/settings/warehouses" icon={Warehouse} label="Warehouses" />
-            <NavItem to="/settings/locations" icon={MapPin} label="Locations" />
+            <NavItem to="/settings/warehouses" icon={Warehouse} label="Warehouses" onClick={closeMobile} />
+            <NavItem to="/settings/locations" icon={MapPin} label="Locations" onClick={closeMobile} />
           </>
         )}
       </nav>
 
       {/* User area */}
       <div className="mt-4 border-t pt-4 space-y-1" style={{ borderColor: 'var(--border)' }}>
-        <NavItem to="/profile" icon={User} label="My Profile" />
+        <NavItem to="/profile" icon={User} label="My Profile" onClick={closeMobile} />
         <button onClick={toggleTheme} className="nav-link w-full">
           {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>

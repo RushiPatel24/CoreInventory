@@ -106,34 +106,34 @@ export default function ReceiptsPage() {
             </div>
             <div className="space-y-2">
               {form.lines.map((line, i) => (
-                <div key={i} className="grid grid-cols-12 gap-2 items-start p-3 rounded-lg" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
-                  <div className="col-span-4">
+                <div key={i} className="flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:gap-2 items-start p-3 rounded-lg" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
+                  <div className="w-full sm:col-span-4">
                     <label className="label">Product</label>
                     <select className="input" value={line.productId} onChange={e => updateLine(i, 'productId', e.target.value)}>
                       <option value="">Select…</option>
                       {products.map(p => <option key={p._id} value={p._id}>{p.name}</option>)}
                     </select>
                   </div>
-                  <div className="col-span-3">
+                  <div className="w-full sm:col-span-3">
                     <label className="label">Warehouse</label>
                     <select className="input" value={line.warehouseId} onChange={e => { updateLine(i, 'warehouseId', e.target.value); updateLine(i, 'locationId', '') }}>
                       <option value="">Select…</option>
                       {warehouses.map(w => <option key={w._id} value={w._id}>{w.name}</option>)}
                     </select>
                   </div>
-                  <div className="col-span-2">
+                  <div className="w-full sm:col-span-2">
                     <label className="label">Location</label>
                     <select className="input" value={line.locationId} onChange={e => updateLine(i, 'locationId', e.target.value)}>
                       <option value="">Select…</option>
                       {locationsByWarehouse(line.warehouseId).map(l => <option key={l._id} value={l._id}>{l.name}</option>)}
                     </select>
                   </div>
-                  <div className="col-span-2">
+                  <div className="w-full sm:col-span-2">
                     <label className="label">Qty</label>
                     <input className="input stat-mono px-2" type="number" min={1} value={line.expectedQty} onChange={e => updateLine(i, 'expectedQty', Number(e.target.value))} />
                   </div>
-                  <div className="col-span-1 flex items-end pb-1">
-                    <button type="button" onClick={() => removeLine(i)} style={{ color: 'var(--danger)' }}><Trash2 size={14} /></button>
+                  <div className="w-full sm:col-span-1 flex items-end justify-end sm:justify-center sm:pb-2">
+                    <button type="button" onClick={() => removeLine(i)} style={{ color: 'var(--danger)' }} className="p-2 sm:p-0"><Trash2 size={16} /></button>
                   </div>
                 </div>
               ))}

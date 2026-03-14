@@ -105,16 +105,16 @@ export default function ProductsPage() {
       </PageHeader>
 
       {/* Filters */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="relative flex-1 max-w-xs">
+      <div className="flex flex-wrap items-center gap-3 mb-6">
+        <div className="relative flex-1 min-w-[200px] sm:max-w-xs">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
           <input className="input pl-8" placeholder="Search name or SKU…" value={search} onChange={e => setSearch(e.target.value)} />
         </div>
-        <select className="input w-40" value={filterCat} onChange={e => setFilterCat(e.target.value)}>
+        <select className="input flex-1 sm:w-40 sm:flex-none" value={filterCat} onChange={e => setFilterCat(e.target.value)}>
           <option value="">All Categories</option>
           {categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
         </select>
-        <label className="flex items-center gap-2 text-sm cursor-pointer" style={{ color: 'var(--text-secondary)' }}>
+        <label className="flex items-center gap-2 text-sm cursor-pointer whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>
           <input type="checkbox" checked={showArchived} onChange={e => setShowArchived(e.target.checked)} />
           Show Archived
         </label>

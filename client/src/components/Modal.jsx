@@ -18,12 +18,12 @@ export default function Modal({ open, onClose, title, children, maxWidth = '520p
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4"
+      style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)' }}
       onClick={(e) => e.target === overlayRef.current && onClose()}
     >
       <div
-        className="card w-full flex flex-col max-h-[90vh] animate-fade-in"
+        className="card w-full h-full sm:h-auto sm:max-h-[90vh] flex flex-col sm:rounded-2xl animate-fade-in"
         style={{ maxWidth }}
       >
         {/* Header */}
