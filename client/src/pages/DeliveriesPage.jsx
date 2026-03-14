@@ -163,10 +163,6 @@ export default function DeliveriesPage() {
               <button type="button" className="text-xs" style={{ color: 'var(--accent)' }} onClick={() => setForm(f => ({ ...f, lines: [...f.lines, emptyLine()] }))}>+ Add Line</button>
             </div>
             <div className="space-y-2">
-              <div className="flex items-center gap-4 mb-4 text-xs font-semibold uppercase px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500" style={{ border: '1px solid var(--border)', background: 'var(--bg-card)' }}>
-                 <span className="flex-1">Draft &gt; Waiting &gt; Ready &gt; Done</span>
-                 <span className="text-right">Alert & mark red if product not in stock</span>
-              </div>
               {form.lines.map((line, i) => (
                 <div key={i} className={`grid grid-cols-12 gap-2 items-start p-3 rounded-lg ${line.qty > 50 ? 'border-red-500 bg-red-500/10' : ''}`} style={{ background: line.qty > 50 ? 'rgba(239, 68, 68, 0.1)' : 'var(--bg-secondary)', border: `1px solid ${line.qty > 50 ? 'red' : 'var(--border)'}` }}>
                   <div className="col-span-4">
@@ -183,19 +179,19 @@ export default function DeliveriesPage() {
                       {warehouses.map(w => <option key={w._id} value={w._id}>{w.name}</option>)}
                     </select>
                   </div>
-                  <div className="col-span-3">
+                  <div className="col-span-2">
                     <label className="label">Location</label>
                     <select className="input" value={line.locationId} onChange={e => updateLine(i, 'locationId', e.target.value)}>
                       <option value="">Select…</option>
                       {locationsByWarehouse(line.warehouseId).map(l => <option key={l._id} value={l._id}>{l.name}</option>)}
                     </select>
                   </div>
-                  <div className="col-span-1">
+                  <div className="col-span-2">
                     <label className="label">Qty</label>
-                    <input className="input stat-mono" type="number" min={1} value={line.qty} onChange={e => updateLine(i, 'qty', Number(e.target.value))} />
+                    <input className="input stat-mono px-2" type="number" min={1} value={line.qty} onChange={e => updateLine(i, 'qty', Number(e.target.value))} />
                   </div>
-                  <div className="col-span-1 flex items-end pb-1">
-                    <button type="button" onClick={() => setForm(f => ({ ...f, lines: f.lines.filter((_, idx) => idx !== i) }))} style={{ color: 'var(--danger)' }}><Trash2 size={14} /></button>
+                  <div className="col-span-1 flex items-end justify-center pb-2">
+                    <button type="button" onClick={() => setForm(f => ({ ...f, lines: f.lines.filter((_, idx) => idx !== i) }))} style={{ color: 'var(--danger)' }}><Trash2 size={16} /></button>
                   </div>
                 </div>
               ))}
